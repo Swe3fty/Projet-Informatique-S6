@@ -1,2 +1,2 @@
 # Projet-Informatique-S6
-SUPERVISION ET REGULATION DE LA  TEMPERATURE D’UNE HABITATION 
+Supervision et regulation de la temperature d'une habitation 
