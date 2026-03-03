@@ -2,5 +2,5 @@
 
 void visualisationT(temp_t myTemp)
 {
-   
+
 }

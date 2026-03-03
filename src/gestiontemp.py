@@ -110,7 +110,7 @@ class myapp:
 			tk.Label(self.lpanel, text="---").grid(column=0, row=crow)
 			crow += 1
 			# slidebar
-			self.str_Thermostat = tk.StringVar( self.lpanel, self.oText );
+			self.str_Thermostat = tk.StringVar( self.lpanel, self.oText )
 			self.slidebar = tk.Scale( self.lpanel, variable=self.str_Thermostat, from_=30, to=0, resolution=0.5, length=200,tickinterval=5, orient=VERTICAL, command=self.cbk_thermostat).grid(column=0, row=crow)
 			crow += 1
 			# exit button

@@ -1,7 +1,9 @@
-#include <stdio.h>
+#include "consigne.h"
 
 
+int main(void){
+    printf("Valeur consigne : %.1f",consigne(10.0));
 
-int main (){
 
+    return 0;
 }
