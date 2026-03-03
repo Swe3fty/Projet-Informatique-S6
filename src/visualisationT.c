@@ -5,46 +5,56 @@ void visualisationT(temp_t myTemp)
 {
     char etat[10]; 
     
-    FILE *fichier_verrou = fopen(".verrouData","r"); 
-
     // On teste l'existance du fichier .verrouData
-    if (fichier_verrou!=NULL){
-        
+    FILE *fichier_verrou = fopen(".verrouData","r");
+    
+    if (fichier_verrou!=NULL){ 
         printf("Impossible d'ouvrir le fichier data.txt, une utilisation est en cours\n"); 
-        fclose(fichier_verrou); 
+        fclose(fichier_verrou);
         return; 
     }
 
     //Si verrourData n'existe pas : la voie est libre
     else {
-        
-        FILE *fichier = fopen("data.txt","r");
-        fscanf(fichier,"%s",etat);
-        fclose(fichier); 
+        //création d'un fichier verrouData
+        FILE *fichier_creation_verrou = fopen(".verrouData","w");
+        fclose(fichier_creation_verrou);
 
-        fichier = fopen("data.txt","w+");
+        //Lecture de data.txt pour récup l'état 
+        FILE *fichier_r = fopen("data.txt","r");
 
-        //gestion d'erreur d'ouverture de fichier
-        if (fichier == NULL){
-            printf("Erreur d'ouverture du fichier data.txt\n");
+        if (fichier_r == NULL){
+            printf("Erreur d'ouverture du fichier data.txt en mode r\n");
+            remove(".verrouData");
+			return;
+        }
+        else {
+            fscanf(fichier_r,"%9s",etat);
+            fclose(fichier_r);
         }
         
-        //écriture dans data.txt
-        else {
+        //Ré-écriture complète de data.txt
 
-            FILE *fichier_creation_verrou = fopen(".verrouData","w");
-            fclose(fichier_creation_verrou);
-            fprintf(fichier,"%s\n",etat);
+        FILE *fichier_w = fopen("data.txt","w+");
 
-            float Tint = myTemp.interieure;
-            fprintf(fichier, "%f\n", Tint);           
+        if (fichier_w == NULL){
+            printf("Erreur d'ouverture du fichier data.txt en mode w\n");
+            remove(".verrouData");
+			return;
+        }
+        else {            
+            fprintf(fichier_w,"%s\n",etat); // true/false
+
+            float t1 = myTemp.interieure;
+            fprintf(fichier_w, "%f\n", t1);// écriture temp1          
             
-            float Text = myTemp.exterieure;
-            fprintf(fichier, "%f\n",Text);  
-
+            float t2 = myTemp.exterieure;
+            fprintf(fichier_w, "%f\n",t2); // écriture temp2
+            
+            fclose(fichier_w);
             remove(".verrouData");
 
-            fclose(fichier);
+            
             }
 
         }

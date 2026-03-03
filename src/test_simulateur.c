@@ -16,7 +16,7 @@
 int main(){
 
 	temp_t temperature; // initialisation de la température
-	temperature.exterieure = 10.0; // initialisation de la température extérieure à 14.0°C
+	temperature.exterieure = 14.0; // initialisation de la température extérieure à 14.0°C
 	temperature.interieure = 15.0; // initialisation de la température intérieure à 15.0°C
 
     float cmd = 0; // initialisation de la commande du chauffage à 0%
