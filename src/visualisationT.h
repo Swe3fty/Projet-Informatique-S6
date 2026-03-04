@@ -7,4 +7,4 @@
 
 void visualisationT(temp_t myTemp);
 
-#define VISUALISATION_H
+#endif

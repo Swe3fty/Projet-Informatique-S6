@@ -1,4 +1,4 @@
-#ifdnef VISUALISATIONC_H
+#ifndef VISUALISATIONC_H
 #define VISUALISATIONC_H
 
 #include <string.h>

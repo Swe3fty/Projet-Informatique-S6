@@ -17,6 +17,7 @@ int main(void){
     float prev_error = -999.0;
     float I = 0.0;
     struct simParam_s* param_ps = simConstruct(temperatures);
+    pid PID = {-999.0, 0.0};
 
     while(1){
         //Lecture de la consigne
@@ -26,7 +27,7 @@ int main(void){
         visualisationT(temperatures);
 
         //Calcul de la régulation
-        cmd = regulation(2,csgn,temperatures.interieure,&I,&prev_error);
+        cmd = regulation(2,csgn,temperatures.interieure,&PID);
 
         //Afficher témoin
         visualisationC(cmd);
@@ -37,20 +38,10 @@ int main(void){
         printf("Temperature interieure : %.1fC, Temperature exterieure : %.1fC\n", temperatures.interieure, temperatures.exterieure);
         usleep(400000);
 
+
     }
     simDestruct(param_ps);
-    
 
-    /*float tabT[] = {15.0, 14.0, 13.0, 12.0, 11.0};
-    int taille = sizeof(tabT)/sizeof(float);
-
-    visualisationT(temperatures);
-    printf("Valeur consigne : %.1f\n",csgn);
-
-    cmd = regulationTest(2,csgn,tabT,taille);
-    printf("La commande du chauffage est : %f\n",cmd);
-
-    visualisationC(csgn);*/
 
     return 0;
 }

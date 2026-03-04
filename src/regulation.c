@@ -2,12 +2,14 @@
 #include <stdlib.h>
 #include "regulation.h"
 
-float regulation(int regul, float consigne, float temperature, float * I, float* prev_error) {
+float regulation(int regul, float consigne, float temperature, pid * calcul) {
     float cmd = 0.0;
     float Kp = 1.1;
     float Ki = 0.2;
     float Kd = 0.15;
+    float error = consigne - temperature;
     float P = 0.0;
+    float I = 0.0;
     float D = 0.0;
 
 	//Regulation Tout ou Rien
@@ -20,14 +22,22 @@ float regulation(int regul, float consigne, float temperature, float * I, float*
 
 	//Regulation PID
     } else {
-        P = Kp * (consigne - temperature);
+        // Calcul du terme P
+        P = Kp * error;
 
-        if(*prev_error != -999.0) {
-            *I += Ki * (consigne - temperature);
-            D = Kd * ((consigne - temperature) - *prev_error);
+        // Calcul des termes I et D (sauf à la première itération)
+        if(calcul->erreur_precedente != -999.0) {
+            // Accumulation de l'intégrale (somme des erreurs)
+            calcul->integrale += error;
+            // Calcul du terme dérivé
+            D = Kd * (error - calcul->erreur_precedente);
         }
 
-        cmd = P + *I + D;
+        // Calcul de la commande : I_term = Ki * integrale accumulée
+        I = Ki * calcul->integrale;
+        cmd = P + I + D;
+
+        // Saturation linéaire
         if(cmd > 100.0){
  			cmd = 100.0;
 		}
@@ -35,18 +45,18 @@ float regulation(int regul, float consigne, float temperature, float * I, float*
 			cmd = 0.0;
 		}
 
-        *prev_error = (consigne - temperature);
+        // Mémorisation de l'erreur pour la prochaine itération
+        calcul->erreur_precedente = error;
     }
     return cmd;
 }
 
 float regulationTest(int regul, float consigne, float* tabT, int nT) {
     float cmd = 0.0;
-    float prev_error = -999.0;
-	float I = 0.0;
+    pid PID = {-999.0, 0.0};
 
     for(int i = 0; i < nT; i++) {
-        cmd = regulation(regul, consigne, tabT[i], &I, &prev_error);
+        cmd = regulation(regul, consigne, tabT[i], &PID);
     }
 
     return cmd;
