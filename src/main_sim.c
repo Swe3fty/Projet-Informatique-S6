@@ -11,7 +11,7 @@ int main(void){
     
     temp_t temperatures;
     temperatures.interieure = 15.0;
-    temperatures.exterieure = 14.0;
+    temperatures.exterieure = 22.0;
     float cmd = 0.0;
     float csgn = 0.0;
     float prev_error = -999.0;
@@ -34,7 +34,7 @@ int main(void){
         //Envoie de la commande au simulateur
         temperatures = simCalc(cmd, param_ps);
 
-        printf("Temperature interieure : %.1f°C, Temperature exterieure : %.1f°C\n", temperatures.interieure, temperatures.exterieure);
+        printf("Temperature interieure : %.1fC, Temperature exterieure : %.1fC\n", temperatures.interieure, temperatures.exterieure);
         usleep(1000000);
 
     }
