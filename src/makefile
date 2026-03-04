@@ -6,7 +6,7 @@ all:
 	gcc -c simulateur.c
 	gcc -c main_sim.c
 	gcc -c simulateur.c
-	gcc consigne.o visualisationT.o visualisationC.o regulation.o simulateur.o main_sim.o -o main_sim.exe 
+	gcc consigne.o visualisationT.o visualisationC.o regulation.o simulateur.o main_sim.o ft2dxx.lib -o main_sim.exe 
 
 clean:
 	del /f *.o main_sim.exe
