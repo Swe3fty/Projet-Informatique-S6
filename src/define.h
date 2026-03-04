@@ -9,5 +9,11 @@ typedef struct {
 	float exterieure;
 }temp_t;
 
+typedef struct {
+    float erreur_precedente;
+    float integrale;
+	int iteration;
+} pid;
+
 
 #endif
