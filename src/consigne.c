@@ -16,7 +16,7 @@ float consigne(float csgn){
 
       if(csgn_file == NULL){
          printf("Impossible d'ouvrir le fichier consigne.txt\n");
-         remove(".verrouConsigne");
+         //remove(".verrouConsigne");
          exit(EXIT_FAILURE);
       } else {
 
@@ -27,7 +27,7 @@ float consigne(float csgn){
          return csgn_f;
       }
    } else {
-            printf("Impossible d'ouvrir le fichier %s son utilisation est en cours\n");
+            printf("Impossible d'ouvrir le fichier consigne.txt son utilisation est en cours\n");
             return csgn;
    }
 }

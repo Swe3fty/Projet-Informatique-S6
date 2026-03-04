@@ -41,7 +41,7 @@ float regulation(int regul, float consigne, float temperature, float * I, float*
 }
 
 float regulationTest(int regul, float consigne, float* tabT, int nT) {
-    float cmd = 100.0;
+    float cmd = 0.0;
     float prev_error = -999.0;
 	float I = 0.0;
 
