@@ -1,8 +1,12 @@
-gcc -c simulateur.c 
-gcc -c test_simulateur.c 
-gcc simulateur.o test_simulateur.o -o test_simulateur.exe 
+all:
+	gcc -c consigne.c
+	gcc -c visualisationT.c
+	gcc -c visualisationC.c
+	gcc -c regulation.c
+	gcc -c simulateur.c
+	gcc -c main_sim.c
+	gcc -c simulateur.c
+	gcc consigne.o visualisationT.o visualisationC.o regulation.o simulateur.o main_sim.o -o main_sim.exe
 
-# Nettoyage des fichiers objets
 clean:
-    rm -f $(OBJECTS)
-	rm -f *.o
+	del /f *.o main_sim.exe
