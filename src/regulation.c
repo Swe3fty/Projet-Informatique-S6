@@ -48,7 +48,7 @@ float regulation(int regul, float consigne, float temperature, pid * regulation)
 float regulationTest(int regul, float consigne, float* tabT, int nT) {
     float cmd = 0.0;
     pid PID;
-    PID.erreur_precedente = -999.0;
+    PID.erreur_precedente = 0.0;
     PID.integrale = 0.0;
     PID.iteration = 0;
 
