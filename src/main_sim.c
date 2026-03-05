@@ -17,9 +17,9 @@ int main(void){
     float prev_error = -999.0;
     float I = 0.0;
     struct simParam_s* param_ps = simConstruct(temperatures);
-    pid PID = {-999.0, 0.0};
+    pid PID = {0.0, 0.0,0.0};
 
-    while(1){
+    do{
         //Lecture de la consigne
         csgn = consigne(temperatures.interieure);
 
@@ -39,9 +39,12 @@ int main(void){
         usleep(400000);
 
 
-    }
+    } while (csgn > CONSIGNE_MIN);
+    cmd = 0.0;
+    visualisationC(cmd);
     simDestruct(param_ps);
 
 
-    return 0;
+
+    return EXIT_SUCCESS;
 }

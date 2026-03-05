@@ -22,12 +22,14 @@ float regulation(int regul, float consigne, float temperature, pid * regulation)
         float P = Kp * erreur;
         float I = 0.0;
         float D = 0.0;
+
         
         if(regulation->iteration > 0) {
-            regulation->integrale += erreur;
+
             I = Ki * regulation->integrale;
             D = Kd * (erreur - regulation->erreur_precedente);
         }
+
         
         cmd = P + I + D;
         
@@ -37,7 +39,7 @@ float regulation(int regul, float consigne, float temperature, pid * regulation)
         if(cmd < 0.0){
 			cmd = 0.0;
 		}
-
+        regulation->integrale += erreur;
         regulation->erreur_precedente = erreur;
         regulation->iteration++;
     }
