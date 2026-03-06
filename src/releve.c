@@ -1,9 +1,6 @@
-#include "define.h"
 #include "releve.h"
-#include <stdlib.h>
-#include <string.h>
-#include <stdint.h>
 
+/*Fonction qui releve toutes les connections avec certains périphérique et renvoie le nombre de connexions*/
 DWORD releve_connexions(void){
     FT_STATUS ftStatus;
     DWORD numDevs = 0; //définit avec window.h -> Double Word 32bits uint, utilisé pour les api windows
@@ -48,28 +45,34 @@ temp_t releve_connect_and_read(DWORD device_index){
     uint16_t SOT_ext;
     uint16_t SOT_int;
 
+    //Ouverture de communication avec la carte
     ftStatus = FT_Open(device_index,&localHandle);
     if(ftStatus != FT_OK){
         printf("Impossible d'ouvrir la carte\n");
         return temperatures;
     }
 
+    //Vitesse de liaison
     ftStatus = FT_SetBaudRate(localHandle,115200);
     if(ftStatus != FT_OK){
         printf("Impossible de definir le Baud Rate\n");
         return temperatures;
     }
 
+    //Caractéristiques de la liaison
     ftStatus = FT_SetDataCharacteristics(localHandle, FT_BITS_8, FT_STOP_BITS_1,FT_PARITY_NONE);
     ftStatus = FT_SetFlowControl(localHandle,FT_FLOW_NONE,0,0);
     ftStatus = FT_SetTimeouts(localHandle,1000,1000); //Timeout écriture lecture
 
+    //Lecture des bytes reçu
     ftStatus = FT_Read(localHandle, buffer, 6, &bytesreceived);
     if(ftStatus != FT_OK && bytesreceived!=6){
         printf("Erreur de lecture de la carte\n");
         FT_Close(localHandle);
         return temperatures;
     }
+
+    //Conversion en SOT et renvoie
     SOT_ext = ((buffer[0] & 0x0F) << 8) | ((buffer[1] & 0x0F) << 4) | (buffer[2] & 0x0F);
     SOT_int = ((buffer[3] & 0x0F) << 8) | ((buffer[4] & 0x0F) << 4) | (buffer[5] & 0x0F);
 

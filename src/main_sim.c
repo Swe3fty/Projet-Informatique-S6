@@ -36,7 +36,6 @@ int main(void){
         temperatures = simCalc(cmd, param_ps);
 
         printf("Temperature interieure : %.1fC, Temperature exterieure : %.1fC\n", temperatures.interieure, temperatures.exterieure);
-        usleep(400000);
 
 
     } while (csgn > CONSIGNE_MIN);

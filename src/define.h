@@ -9,7 +9,7 @@
 
 typedef struct {
 	float interieure;
-	float exterieure;
+	float exterieure; 
 }temp_t;
 
 typedef struct {
